@@ -1,8 +1,3 @@
-using System.Globalization;
-using CsvHelper;
-using CsvHelper.Configuration;
-using CsvHelper.Configuration.Attributes;
-
 namespace AoCSharp;
 
 public class Day1
@@ -20,15 +15,20 @@ public class Day1
         return distance;
     }
 
-    public static void Process()
+    public static int GetSimilarityScore(List<int> list1, List<int> list2)
     {
-        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        int score = 0;
+        foreach (int value in list1)
         {
-            HasHeaderRecord = false,
-            Delimiter = " ",
-            TrimOptions = TrimOptions.Trim
-        };
-        
+            int count = list2.Count(x => x == value);
+            score += value * count;
+        }
+
+        return score;
+    }
+
+    public static void Process()
+    {   
         using (var reader = new StreamReader("Inputs/day1.txt"))
         {
             List<int> list1 = new List<int>();
@@ -37,28 +37,18 @@ public class Day1
             while ((line = reader.ReadLine()) != null)
             {
                 string[] values = line.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                if (int.TryParse(values[0], out int x))
+                if (int.TryParse(values[0], out int x) && int.TryParse(values[1], out int y))
                 {
                     list1.Add(x);
-                }
-
-                if (int.TryParse(values[1], out int y))
-                {
                     list2.Add(y);
                 }
             }
             
             int distance = GetDistance(list1, list2);
             Console.WriteLine($"Distance is {distance}");
+            
+            int similarity = GetSimilarityScore(list1, list2);
+            Console.WriteLine($"Similarity is {similarity}");
         }
-    }
-
-    public class Day1Record
-    {
-        [Index(0)]
-        public string Value1 { get; set; }
-        
-        [Index(1)]
-        public string Value2 { get; set; }
     }
 }
