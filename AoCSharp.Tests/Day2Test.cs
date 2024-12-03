@@ -18,7 +18,8 @@ public class Day2Test
     [TestMethod]
     public void ShouldDetectUnsafeReports(string report, bool isExpectedSafe)
     {
-        bool actual = Day2.IsReportSafe(report);
+        int[] values = Day2.ExtractValues(report);
+        bool actual = Day2.IsReportSafe(values);
         actual.Should().Be(isExpectedSafe);
     }
     
@@ -36,7 +37,8 @@ public class Day2Test
     [TestMethod]
     public void ShouldDetectUnsafeReportsWithDampener(string report, bool isExpectedSafe)
     {
-        bool actual = Day2.IsReportSafe(report);
+        int[] values = Day2.ExtractValues(report);
+        bool actual = Day2.IsReportSafeWithDampener(values);
         actual.Should().Be(isExpectedSafe);
     }
 }

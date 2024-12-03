@@ -1,12 +1,37 @@
+using System.Buffers;
+
 namespace AoCSharp;
 
 public class Day2
 {
-    public static bool IsReportSafe(string report)
+    public static int[] ExtractValues(string report)
     {
         string[] values = report.Split(' ');
-        int[] numbers = Array.ConvertAll(values, int.Parse);
+        return Array.ConvertAll(values, int.Parse);
+    }
+    
+    public static bool IsReportSafeWithDampener(int[] values)
+    {
+        if (IsReportSafe(values))
+        {
+            return true;
+        }
+        
+        for (int i = 0; i < values.Length; i++)
+        {
+            List<int> copy = values.Select(v => v).ToList();
+            copy.RemoveAt(i);
+            if (IsReportSafe(copy.ToArray()))
+            {
+                return true;
+            }
+        }
 
+        return false;
+    }
+
+    public static bool IsReportSafe(int[] numbers)
+    {
         bool isGoingUp = numbers[numbers.Length - 1] > numbers[0];
         for (int i = 0; i < numbers.Count()-1; i++)
         {
@@ -32,9 +57,15 @@ public class Day2
             string? line;
             while ((line = reader.ReadLine()) != null)
             {
-                if (IsReportSafe(line))
+                int[] values = ExtractValues(line);
+                if (IsReportSafe(values))
                 {
                     safeReports++;
+                }
+
+                if (IsReportSafeWithDampener(values))
+                {
+                    safeReportsWithDampener++;
                 }
             }
             
