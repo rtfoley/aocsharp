@@ -17,4 +17,12 @@ public class Day3Test
         int actual = Day3.GetTotal(input);
         actual.Should().Be(161);
     }
+
+    [TestMethod]
+    public void ShouldGetCorrectTotalWithConditionals()
+    {
+        string input = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
+        int actual = Day3.GetTotalWithConditional(input);
+        actual.Should().Be(48);
+    }
 }
