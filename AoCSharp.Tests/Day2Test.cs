@@ -36,7 +36,7 @@ public class Day2Test
     [TestMethod]
     public void ShouldDetectUnsafeReportsWithDampener(string report, bool isExpectedSafe)
     {
-        bool actual = Day2.IsReportSafe(report, useDampener: true);
+        bool actual = Day2.IsReportSafe(report);
         actual.Should().Be(isExpectedSafe);
     }
 }
