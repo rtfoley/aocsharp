@@ -30,4 +30,25 @@ public class Day4Test
         int actual = Day4.GetWordCount(testInput);
         actual.Should().Be(18);
     }
+    
+    [TestMethod]
+    public void ShouldFindCorrectNumberOfXs()
+    {
+        string[] testInput = new[]
+        {
+            "MMMSXXMASM",
+            "MSAMXMSMSA",
+            "AMXSXMAAMM",
+            "MSAMASMSMX",
+            "XMASAMXAMM",
+            "XXAMMXXAMA",
+            "SMSMSASXSS",
+            "SAXAMASAAA",
+            "MAMMMXMMMM",
+            "MXMXAXMASX",
+        };
+        
+        int actual = Day4.GetXCount(testInput);
+        actual.Should().Be(9);
+    }
 }
